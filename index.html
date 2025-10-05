@@ -4,12 +4,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Feliz cumple Hanna</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Sacramento&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg1:#FF69B4; 
     --bg2:#FF9AD7; 
-    --text:#4a1942; /* Color de texto oscuro, seguro */
-    --muted:rgba(74,25,66,0.7);
+    --text:#4a1942;
+    --muted:rgba(74,25,66,0.55);
     
     --pure-white: #FFFFFF;
     --pure-neon-pink: #FF10F0; 
@@ -25,72 +26,67 @@
   }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;
-    /* FUENTE DE SISTEMA GARANTIZADA PARA MÁXIMA COMPATIBILIDAD */
-    font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif; 
+    font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif; /* Usamos una fuente de sistema para la base */
     background:linear-gradient(135deg,var(--bg1),var(--bg2));
     color:var(--text);-webkit-font-smoothing:antialiased;overflow:auto}
   
   .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;position:relative}
   .card{width:100%;max-width:880px;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);border-radius:24px;padding:36px 28px;box-shadow:0 18px 50px var(--shadow-light);position:relative;overflow:hidden;z-index:10}
   
-  .estrellas-capa {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 5;
-  }
-  #fondo-estrellas { z-index: 5; }
-  #frente-estrellas { z-index: 15; }
-  
-  .kitty-wrap{width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.9);box-shadow:0 10px 30px rgba(255,105,180,0.25);position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s ease;z-index:2;margin:0 auto}
-  .kitty-wrap:hover{transform:scale(1.05);box-shadow:0 15px 40px rgba(255,105,180,0.4)}
-  .kitty{width:160px;height:160px;position:relative}
-  .sparkle{position:absolute;pointer-events:none}
-  .center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-  
-  /* CAMBIO CLAVE: Cambiado de 'display:none' a 'display:flex' para asegurar que la tarjeta aparezca */
-  .reveal{display:flex;margin-top:20px;width:100%;flex-direction:column;align-items:center;}
-  
-  .gift-box{background:var(--gift-bg-light-grey);border:2px solid var(--gift-border-light-grey);border-radius:18px;position:relative;width:100%;padding:15px;box-shadow:0 0 10px rgba(0,0,0,0.1)}
-  .gift-lid{height:30px;background:var(--pure-neon-pink);border:2px solid var(--gift-border-light-grey);border-bottom:none;border-radius:18px 18px 0 0;position:absolute;top:-30px;left:-2px;right:-2px;transform:translateY(0);transition:transform 0.7s cubic-bezier(0.68,-0.55,0.265,1.55), box-shadow 0.7s ease}
-  .gift-body{padding-top:10px}
-  .gift-open .gift-lid{transform:translateY(-100px) rotate(-10deg);box-shadow:0 15px 30px rgba(0,0,0,0.2)}
-  .glowing{box-shadow:0 0 15px var(--pure-neon-pink), 0 0 30px var(--pure-pastel-pink)}
+  /* === ESTRELLAS (No se toca) === */
+  .estrellas-capa {position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  #fondo-estrellas {z-index: 5; opacity: 0.6; }
+  #frente-estrellas {z-index: 15; opacity: 1; }
+  #particles{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.95}
+  /* === FIN ESTRELLAS === */
   
   .top-text{position:relative;z-index:2;font-weight:700;color:var(--muted);font-size:20px;text-align:center;margin-bottom:12px}
   
-  /* ESTILOS SIN BRILLO (LEGIBILIDAD GARANTIZADA) */
+  /*  CORRECCIÓN CRÍTICA 1: Eliminamos el text-shadow y la fuente externa para legibilidad en local. */
   .neon{
-    font-family: system-ui, sans-serif; 
+    font-family: system-ui, sans-serif; /* Fuente de sistema garantizada */
     font-size:30px;
     font-weight:800;
-    color:var(--text); /* Color oscuro normal */
+    color:var(--pure-neon-pink); /* Usamos el color Neón como texto principal */
     padding:8px 16px;
     border-radius:10px;
     display:inline-block;
     background:none; 
-    text-shadow: none; /* SIN BRILLO */
+    text-shadow: none; /* Quitamos la sombra de texto que causa el conflicto */
     filter:none; 
     transition:all .3s ease;
   }
   
   @keyframes neonColors {
-    0% { color: var(--text); }
-    50% { color: var(--pure-neon-pink); } 
-    100% { color: var(--text); }
+    /* Mantenemos la animación pero sin text-shadow, solo cambiando el color si carga */
+    0% { color: var(--pure-neon-pink); }
+    50% { color: #ff7ac9; } 
+    100% { color: var(--pure-neon-pink); }
   }
   .neon.animated{animation:neonColors 4s linear infinite}
+  /* FIN DE ESTILOS NEÓN CORREGIDOS */
 
-  /* ESTILOS SIN BRILLO (LEGIBILIDAD GARANTIZADA) */
+  .center{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:20px}
+  .kitty-wrap{width:220px;height:220px;border-radius:24px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#fff0f6);box-shadow:0 14px 30px var(--shadow-medium);cursor:pointer;transition:transform .3s ease,box-shadow .3s ease;position:relative;overflow:visible;margin-top:10px}
+  .kitty-wrap:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 20px 45px var(--shadow-medium);}
+  .kitty{width:160px;height:160px;display:block;filter:drop-shadow(0 10px 15px rgba(200,60,120,0.15));}
+  .sparkle{position:absolute;z-index:3;pointer-events:none}
+  .reveal{margin-top:16px;display:none;flex-direction:column;align-items:center;gap:18px;transition:opacity .4s;z-index:2;padding-top:10px;width:100%}
+  .reveal.show{display:flex;animation:fadeIn .6s ease both}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .gift-box{width:100%;max-width:560px;border-radius:16px;background:linear-gradient(180deg,#fff,#f5f5f5);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;box-shadow:0 18px 40px rgba(0,0,0,0.1);overflow:hidden;position:relative;min-height:200px}
+  .gift-lid{position:absolute;top:0;left:0;right:0;height:50px;background:linear-gradient(180deg,#111,#333);transform-origin:top center;transition:transform .8s cubic-bezier(.2,.9,.3,1)}
+  .gift-open .gift-lid{transform:rotateX(75deg) translateY(-25px)}
+  .gift-body{padding:25px 20px 18px;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  h1.title{font-size:38px;margin:0;color:var(--text);font-weight:700}
+  
+  /*  CORRECCIÓN CRÍTICA 2: Eliminamos text-shadow, usamos color de texto normal y fuente de sistema. */
   .led {
     font-family: system-ui, sans-serif; 
     font-weight: 700;
     
     color: var(--text); /* Usamos el color oscuro normal para máxima legibilidad */
-    text-shadow: none; /* SIN BRILLO */
+    text-shadow: none; /* Quitamos la sombra de texto */
     
     background: var(--gift-bg-light-grey); 
     padding:15px 20px;
@@ -102,19 +98,19 @@
     border:1px solid var(--gift-border-light-grey); 
   }
   
+  /* El detalle específico (el span) sí puede usar un color más vivo */
   .led .neon-blue-detail {
       color: var(--pure-neon-pink); 
       font-weight: 800;
-      text-shadow: none; 
+      text-shadow: none; /* También eliminamos la sombra aquí */
   }
   
   .submsg{margin-top:10px;color:var(--muted);font-size:16px;max-width:720px;text-align:center;font-weight:600}
   
-  /* ESTILOS SIN BRILLO (LEGIBILIDAD GARANTIZADA) */
+  /* El mensaje dorado final SÍ usa la fuente Sacramento, ya que no tiene acentos y es más simple */
   .extra-msg{
-    font-family: system-ui, sans-serif; 
-    font-size: 28px;
-    font-weight: 700;
+    font-family: 'Sacramento', cursive; 
+    font-size: 32px;
     color: var(--elegant-gold); 
     margin-top: 20px;
     padding: 10px 15px;
@@ -123,9 +119,11 @@
     display: none;
     line-height: 1.1;
     text-align: center;
-    text-shadow: none; /* SIN BRILLO */
+    /* Mantenemos el text-shadow para el dorado, ya que esta fuente no suele fallar */
+    text-shadow: 0px 0px 4px rgba(255, 223, 150, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.3); 
   }
   
+  /* El resto del CSS sigue igual... */
   .photos{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:10px;padding-top:10px;border-top:1px solid #eee}
   #photosInit {display: none; margin-bottom: 20px;}
   #photosInit img {width: 150px; height: auto; object-fit: contain;}
@@ -136,7 +134,12 @@
   .cat-image-wrap {display:flex; justify-content:center; align-items:center; margin-top:15px; width:100%;}
   .cat-image-wrap img{max-width:180px; height:auto; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); opacity: 0.9; filter:grayscale(20%) saturate(150%) hue-rotate(330deg); }
   .signature{margin-top:15px;text-align:center;font-weight:700;color:var(--text);font-size:18px}
-
+  .confetti {position: absolute; width: 10px; height: 10px; background-color: #f0f; opacity: 0; animation: confetti-fall 2s forwards ease-out; border-radius: 50%; filter: blur(0.5px);}
+  .confetti:nth-child(2n){ background-color: #0ff; }
+  .confetti:nth-child(3n){ background-color: #ff0; }
+  .confetti:nth-child(4n){ background-color: #f8f; }
+  @keyframes confetti-fall { 0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; } }
+  .gift-box.glowing {box-shadow: 0 0 25px rgba(255, 120, 180, 0.6), 0 0 50px rgba(255, 120, 180, 0.3);}
   @media (max-width:600px){
     .wrap{padding:15px}
     .card{padding:25px 15px}
@@ -158,7 +161,7 @@
 <div class="wrap">
   <canvas id="particles"></canvas>
   <div class="card" role="main">
-    <div class="top-text"><span class="neon animated">¡Tocame! 👻</span></div> 
+    <div class="top-text"><span class="neon animated">¡Tócame! </span></div> 
 
     <div class="center">
       <div id="entryBox" class="kitty-wrap" role="button" tabindex="0" aria-label="Entrada - Tocar la Hello Kitty para comenzar">
@@ -231,7 +234,11 @@
 
 <canvas class="estrellas-capa" id="frente-estrellas"></canvas>
 
+
 <script>
+// Elemento nuevo para el Diablo Pe
+const photosInit = document.getElementById('photosInit'); 
+
 // Función de sonido (pling)
 function playPling(){
   try{
@@ -266,15 +273,19 @@ function playMagicChime(){
     o.stop(ctx.currentTime + 0.55);
   }catch(e){ console.log('Magic chime audio failed',e) }
 }
+</script>
 
-// Función de número aleatorio
-function rand(a,b){return Math.random()*(b-a)+a}
+<script>
+// =================================================================
+// === MODIFICACIÓN CLAVE: Lluvia de Estrellas/Partículas Lo-Fi ===
+// =================================================================
 
 // Partículas de fondo (el canvas original #particles)
 const c = document.getElementById('particles');
 const ctx = c.getContext('2d');
 let W,H,parts=[];
 function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+function rand(a,b){return Math.random()*(b-a)+a}
 function init(){
   parts=[];
   for(let i=0;i<140;i++){
@@ -311,7 +322,10 @@ init();
 draw();
 window.addEventListener('resize',()=>{resize();init()});
 
+// ---------------------------------------------
 // Función general para las capas de estrellas (fondo y frente)
+// ---------------------------------------------
+
 function initStarLayer(canvasId, count, minR, maxR, minVY, maxVY, color){
   const canvas = document.getElementById(canvasId);
   const context = canvas.getContext('2d');
@@ -368,6 +382,11 @@ initStarLayer('fondo-estrellas', 80, 0.8, 1.8, 0.1, 0.4, 'rgba(255, 255, 255, A)
 // Inicializar capa de estrellas de FRENTE (más grandes, color brillante)
 initStarLayer('frente-estrellas', 50, 1.5, 3.5, 0.6, 1.2, 'rgba(255, 16, 240, A)');
 
+
+// =================================================================
+// === FIN DE MODIFICACIÓN CLAVE ===
+// =================================================================
+
 // sparkles for entry
 const sparkCan = document.getElementById('sparklesEntry');
 const sctx = sparkCan.getContext('2d');
@@ -385,7 +404,7 @@ function emitSparklesAt(x,y,canvasCtx){
   frame();
 }
 
-// typing effect (Solo texto simple)
+// typing effect
 function typeText(el, text, speed=30, cb){
   el.textContent = '';
   let i=0;
@@ -396,7 +415,107 @@ function typeText(el, text, speed=30, cb){
   step();
 }
 
-// typing effect (Acepta HTML)
+// CONFETTI EFFECT
+function launchConfetti(count = 50, targetElement) {
+  const container = targetElement || document.body;
+  for (let i = 0; i < count; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.top = Math.random() * -10 + 'vh'; // Start above viewport
+    confetti.style.animationDelay = Math.random() * 1 + 's';
+    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's'; // Slower fall
+    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`; // Random colors
+    container.appendChild(confetti);
+
+    // Remove after animation to prevent DOM clutter
+    confetti.addEventListener('animationend', () => confetti.remove());
+  }
+}
+
+// sequence control
+const entryBox = document.getElementById('entryBox');
+const gift2 = document.getElementById('gift2');
+const gift3 = document.getElementById('gift3');
+const box2 = document.getElementById('box2');
+const box3 = document.getElementById('box3');
+const text2 = document.getElementById('text2');
+const photos2 = document.getElementById('photos2');
+const text3 = document.getElementById('text3');
+const sub3 = document.getElementById('sub3');
+const extraMessage = document.getElementById('extraMessage');
+const dogVideoWrap = document.getElementById('dogVideo');
+const catImage = document.getElementById('catImage');
+const finalSig = document.getElementById('finalSig');
+
+let stepIndex = 0;
+
+function openEntry(e){
+  // Evitar doble clic
+  if(stepIndex!==0) return;
+  stepIndex = 1;
+  
+  // 1. ANUNCIO INICIAL Y SONIDO
+  playPling();
+  emitSparklesAt(150,70,sctx);
+  
+  // Mostrar la imagen de Feliz Diablo Pe justo debajo del Kitty principal
+  photosInit.style.display='flex';
+  
+  // 2. MOSTRAR Y ABRIR REGALO 1 (GIFT2)
+  setTimeout(()=>{ 
+    gift2.classList.add('show'); 
+    gift2.style.display='flex'; 
+    box2.classList.add('gift-open', 'glowing'); 
+    playPling(); 
+    launchConfetti(30, box2); 
+  }, 700);
+  
+  /* Texto con la nueva fuente y azul neón en el detalle */
+  const msg1 = "¡Feliz Cumpleaños Hanna! \nQue este nuevo ciclo de vida te traiga toda la alegría del mundo.\nEsto lo hice con esfuerzo y dedicación, (<span class='neon-blue-detail'>así demostramos afecto los devs :v :v :v :v</span>)\nPásala genial hoy y que se cumplan tus deseos. ";
+  
+  // 3. ESCRIBIR MENSAJE 1 Y MOSTRAR FOTOS DE KITTY (Solo las 3 restantes: 2 Kitties y Saludo)
+  setTimeout(()=>{ 
+    typeTextHTML(text2, msg1, 28, ()=>{ 
+        photos2.style.display='flex'; 
+        playMagicChime(); 
+        
+        setTimeout(()=>{ 
+          // Ocultar la foto del Diablo Pe antes de cerrar la caja de regalo
+          photosInit.style.display='none';
+          box2.classList.remove('gift-open', 'glowing'); 
+          gift2.classList.remove('show'); 
+          playPling(); 
+          
+          setTimeout(()=>{ 
+            gift2.style.display='none'; 
+            gift3.classList.add('show'); 
+            gift3.style.display='flex'; 
+            box3.classList.add('gift-open', 'glowing'); 
+            playPling(); 
+            launchConfetti(40, box3); 
+            
+            /* Texto con la nueva fuente y azul neón en el detalle */
+            const msg3 = "Que cada pequeño momento de este día te haga sonreír,\nporque las personas con buen corazón merecen días hermosos. <span class='neon-blue-detail'></span>";
+            const sub = "¡Tienes un alma preciosa y brillante, nunca lo olvides!";
+            
+            typeTextHTML(text3, msg3, 28, ()=>{ 
+              sub3.textContent = ""; 
+              typeText(sub3, sub, 20, ()=>{
+                dogVideoWrap.style.display='block';
+                loadYouTubePlayer();
+              }); 
+            });
+          }, 700);
+        }, 5000); 
+    }); 
+  }, 1200);
+}
+
+entryBox.addEventListener('click', openEntry);
+entryBox.addEventListener('keypress',(e)=>{ if(e.key==='Enter' || e.key===' ') openEntry(); });
+
+// NUEVA FUNCIÓN para typeText que acepta HTML/SPANs
 function typeTextHTML(el, htmlText, speed=30, cb){
   el.innerHTML = '';
   let i=0;
@@ -427,109 +546,11 @@ function typeTextHTML(el, htmlText, speed=30, cb){
   typeTextSimple();
 }
 
-// CONFETTI EFFECT
-function launchConfetti(count = 50, targetElement) {
-  const container = targetElement || document.body;
-  for (let i = 0; i < count; i++) {
-    const confetti = document.createElement('div');
-    confetti.classList.add('confetti');
-    confetti.style.left = Math.random() * 100 + 'vw';
-    confetti.style.top = Math.random() * -10 + 'vh'; // Start above viewport
-    confetti.style.animationDelay = Math.random() * 1 + 's';
-    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's'; // Slower fall
-    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`; // Random colors
-    container.appendChild(confetti);
-
-    // Remove after animation to prevent DOM clutter
-    confetti.addEventListener('animationend', () => confetti.remove());
-  }
-}
-
-// sequence control
-const photosInit = document.getElementById('photosInit'); 
-const entryBox = document.getElementById('entryBox');
-const gift2 = document.getElementById('gift2');
-const gift3 = document.getElementById('gift3');
-const box2 = document.getElementById('box2');
-const box3 = document.getElementById('box3');
-const text2 = document.getElementById('text2');
-const photos2 = document.getElementById('photos2');
-const text3 = document.getElementById('text3');
-const sub3 = document.getElementById('sub3');
-const extraMessage = document.getElementById('extraMessage');
-const dogVideoWrap = document.getElementById('dogVideo');
-const catImage = document.getElementById('catImage');
-const finalSig = document.getElementById('finalSig');
-
-let stepIndex = 0;
-
-function openEntry(e){
-  if(stepIndex!==0) return;
-  stepIndex = 1;
-  
-  // 1. ANUNCIO INICIAL Y SONIDO
-  playPling();
-  emitSparklesAt(150,70,sctx);
-  
-  // Mostrar la imagen de Feliz Diablo Pe justo debajo del Kitty principal
-  photosInit.style.display='flex';
-  
-  // 2. MOSTRAR Y ABRIR REGALO 1 (GIFT2)
-  setTimeout(()=>{ 
-    gift2.classList.add('show'); 
-    gift2.style.display='flex'; 
-    box2.classList.add('gift-open', 'glowing'); 
-    playPling(); 
-    launchConfetti(30, box2); 
-  }, 700);
-  
-  /* Texto SIN acentos para asegurar legibilidad */
-  const msg1 = "¡Feliz Cumpleanos Hanna! 🎁🎉\nQue este nuevo ciclo de vida te traiga toda la alegria del mundo.\nEsto lo hice con esfuerzo y dedicacion, (<span class='neon-blue-detail'>asi demostramos afecto los devs :v :v :v :v</span>)\nPasala genial hoy y que se cumplan tus deseos. 💖";
-  
-  // 3. ESCRIBIR MENSAJE 1 Y MOSTRAR FOTOS DE KITTY (Solo las 3 restantes: 2 Kitties y Saludo)
-  setTimeout(()=>{ 
-    typeTextHTML(text2, msg1, 28, ()=>{ 
-        photos2.style.display='flex'; 
-        playMagicChime(); 
-        
-        setTimeout(()=>{ 
-          // Ocultar la foto del Diablo Pe antes de cerrar la caja de regalo
-          photosInit.style.display='none';
-          box2.classList.remove('gift-open', 'glowing'); 
-          gift2.classList.remove('show'); 
-          playPling(); 
-          
-          setTimeout(()=>{ 
-            gift2.style.display='none'; 
-            gift3.classList.add('show'); 
-            gift3.style.display='flex'; 
-            box3.classList.add('gift-open', 'glowing'); 
-            playPling(); 
-            launchConfetti(40, box3); 
-            
-            /* Texto SIN acentos */
-            const msg3 = "Que cada pequeño momento de este dia te haga sonreir,\nporque las personas con buen corazon merecen dias hermosos. <span class='neon-blue-detail'>🎁</span>";
-            const sub = "¡Tienes un alma preciosa y brillante, nunca lo olvides!";
-            
-            typeTextHTML(text3, msg3, 28, ()=>{ 
-              sub3.textContent = ""; 
-              typeText(sub3, sub, 20, ()=>{
-                dogVideoWrap.style.display='block';
-                loadYouTubePlayer();
-              }); 
-            });
-          }, 700);
-        }, 5000); 
-    }); 
-  }, 1200);
-}
-
-entryBox.addEventListener('click', openEntry);
-entryBox.addEventListener('keypress',(e)=>{ if(e.key==='Enter' || e.key===' ') openEntry(); });
 
 // YouTube API for dog video
 let ytPlayer;
 function loadYouTubePlayer(){
+  // CORRECCIÓN: Usar la URL correcta de la API de YouTube (aunque esto no funciona en local)
   const tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api"; 
   const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -538,9 +559,11 @@ function loadYouTubePlayer(){
   window.onYouTubeIframeAPIReady = function(){ window.ytReady = true; initPlayer(); }
 }
 function initPlayer(){
+  // Verificar si la API se cargó correctamente antes de iniciar
   if (typeof YT === 'undefined' || !YT.Player) {
     console.error("YouTube Player API no cargada. No se puede iniciar el video.");
-    setTimeout(onVideoEndedFallback, 6000); 
+    // Forzar la secuencia para que continúe si falla la carga del video
+    setTimeout(onVideoEndedFallback, 6000); // 6 segundos para que el usuario intente cargarlo
     return;
   }
   
@@ -567,8 +590,8 @@ function onVideoEndedFallback(){
     dogVideoWrap.style.display='none';
     catImage.style.display='block'; /* Mostrar la imagen del gato como firma */
     
-    // Este es el mensaje final (ahora sin fuente exótica)
-    const finalMsg = "Y un ultimo secreto:\n¡Eres la persona mas increible que conozco!"; 
+    // Este es el mensaje dorado final que se cargará con la fuente Sacramento (si carga)
+    const finalMsg = "Y un último secreto:\n¡Eres la persona más increíble que conozco!"; 
     extraMessage.style.display = 'block';
     typeText(extraMessage, finalMsg, 35, ()=>{
         finalSig.style.display='block';
@@ -582,4 +605,5 @@ window.addEventListener('pagehide', ()=>{ try{ if(ytPlayer && ytPlayer.pauseVide
 
 </script>
 </body>
-</html>
+  </html>
+  
