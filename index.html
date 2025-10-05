@@ -158,7 +158,7 @@
 <div class="wrap">
   <canvas id="particles"></canvas>
   <div class="card" role="main">
-    <div class="top-text"><span class="neon animated">¡Tócame! 👻</span></div> 
+    <div class="top-text"><span class="neon animated">¡Tocame! 👻</span></div> 
 
     <div class="center">
       <div id="entryBox" class="kitty-wrap" role="button" tabindex="0" aria-label="Entrada - Tocar la Hello Kitty para comenzar">
@@ -483,8 +483,8 @@ function openEntry(e){
     launchConfetti(30, box2); 
   }, 700);
   
-  /* Texto con la nueva fuente y azul neón en el detalle */
-  const msg1 = "¡Feliz Cumpleaños Hanna! 🎁🎉\nQue este nuevo ciclo de vida te traiga toda la alegría del mundo.\nEsto lo hice con esfuerzo y dedicación, (<span class='neon-blue-detail'>así demostramos afecto los devs :v :v :v :v</span>)\nPásala genial hoy y que se cumplan tus deseos. 💖";
+  /* Texto SIN acentos para asegurar legibilidad */
+  const msg1 = "¡Feliz Cumpleanos Hanna! 🎁🎉\nQue este nuevo ciclo de vida te traiga toda la alegria del mundo.\nEsto lo hice con esfuerzo y dedicacion, (<span class='neon-blue-detail'>asi demostramos afecto los devs :v :v :v :v</span>)\nPasala genial hoy y que se cumplan tus deseos. 💖";
   
   // 3. ESCRIBIR MENSAJE 1 Y MOSTRAR FOTOS DE KITTY (Solo las 3 restantes: 2 Kitties y Saludo)
   setTimeout(()=>{ 
@@ -507,8 +507,8 @@ function openEntry(e){
             playPling(); 
             launchConfetti(40, box3); 
             
-            /* Texto con la nueva fuente y azul neón en el detalle */
-            const msg3 = "Que cada pequeño momento de este día te haga sonreír,\nporque las personas con buen corazón merecen días hermosos. <span class='neon-blue-detail'>🎁</span>";
+            /* Texto SIN acentos */
+            const msg3 = "Que cada pequeño momento de este dia te haga sonreir,\nporque las personas con buen corazon merecen dias hermosos. <span class='neon-blue-detail'>🎁</span>";
             const sub = "¡Tienes un alma preciosa y brillante, nunca lo olvides!";
             
             typeTextHTML(text3, msg3, 28, ()=>{ 
@@ -568,7 +568,7 @@ function onVideoEndedFallback(){
     catImage.style.display='block'; /* Mostrar la imagen del gato como firma */
     
     // Este es el mensaje final (ahora sin fuente exótica)
-    const finalMsg = "Y un último secreto:\n¡Eres la persona más increíble que conozco!"; 
+    const finalMsg = "Y un ultimo secreto:\n¡Eres la persona mas increible que conozco!"; 
     extraMessage.style.display = 'block';
     typeText(extraMessage, finalMsg, 35, ()=>{
         finalSig.style.display='block';
