@@ -51,7 +51,9 @@
   .sparkle{position:absolute;pointer-events:none}
   .center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
   
-  .reveal{display:none;margin-top:20px;width:100%}
+  /* CAMBIO CLAVE: Cambiado de 'display:none' a 'display:flex' para asegurar que la tarjeta aparezca */
+  .reveal{display:flex;margin-top:20px;width:100%;flex-direction:column;align-items:center;}
+  
   .gift-box{background:var(--gift-bg-light-grey);border:2px solid var(--gift-border-light-grey);border-radius:18px;position:relative;width:100%;padding:15px;box-shadow:0 0 10px rgba(0,0,0,0.1)}
   .gift-lid{height:30px;background:var(--pure-neon-pink);border:2px solid var(--gift-border-light-grey);border-bottom:none;border-radius:18px 18px 0 0;position:absolute;top:-30px;left:-2px;right:-2px;transform:translateY(0);transition:transform 0.7s cubic-bezier(0.68,-0.55,0.265,1.55), box-shadow 0.7s ease}
   .gift-body{padding-top:10px}
